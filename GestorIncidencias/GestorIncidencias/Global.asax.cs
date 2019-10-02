@@ -3,8 +3,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using GestorIncidencias.Models;
-using Microsoft.AspNet.WebFormsDependencyInjection.Unity;
-using Unity;
+using SimpleInjector;
+using SimpleInjector.Integration.Web.Mvc;
 
 namespace GestorIncidencias
 {
@@ -18,8 +18,9 @@ namespace GestorIncidencias
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            IUnityContainer container = this.AddUnity();
-            container.RegisterType<IContextoIncidencias, ContextoDB>();
+            Container container = new Container();
+            container.Register<IContextoIncidencias, ContextoDB>();
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
     }
 }

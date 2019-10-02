@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestorIncidencias.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,13 @@ namespace GestorIncidencias.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IContextoIncidencias contexto = null;
+
+        public HomeController(IContextoIncidencias contexto)
+        {
+            this.contexto = contexto;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -16,6 +24,8 @@ namespace GestorIncidencias.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
+
+            ViewBag.ListaCentros = contexto.Centros.Select(centro => centro.IdCentro).ToList();
 
             return View();
         }
