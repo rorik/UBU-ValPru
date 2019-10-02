@@ -16,9 +16,9 @@ namespace GestorIncidencias.Models
 
         public IQueryable<Centro> Centros { get; set; } = new[]
         {
-            new Centro(),
-            new Centro(),
-            new Centro(),
+            new Centro() { IdCentro = "CentroA" },
+            new Centro() { IdCentro = "CentroB" },
+            new Centro() { IdCentro = "CentroC" },
         }.AsQueryable();
 
     }
