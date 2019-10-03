@@ -4,13 +4,32 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<ul>
-    @{
-        foreach (var centro in ViewBag.ListaCentros)
-        {
-            //centro;
-        }
+
+<table style="width:100%">
+    <tr>
+        <th>Id</th>
+        <th>Timestamp</th>
+        <th>Asunto</th>
+        <th>Comentario</th>
+        <th>Centro</th>
+        <th>Aula</th>
+        <th>Equipo</th>
+        <th>¿Cerrada?</th>
+    </tr>
+    @for (int i = 0; i < ViewBag.ListaIncidenciasId.Count; i++)
+    {
+        <tr>
+            <td>@ViewBag.ListaIncidenciasId[i]</td>
+            <td>@ViewBag.ListaIncidenciasTimestamp[i]</td>
+            <td>@ViewBag.ListaIncidenciasAsunto[i]</td>
+            <td>@ViewBag.ListaIncidenciasComentario[i]</td>
+            <td>@ViewBag.ListaIncidenciasCentro[i]</td>
+            <td>@ViewBag.ListaIncidenciasAula[i]</td>
+            <td>@ViewBag.ListaIncidenciasEquipo[i]</td>
+            <td>@ViewBag.ListaIncidenciasCerrada[i]</td>
+        </tr>
     }
-</ul>
+
+</table>
 
 <p>Use this area to provide additional information.</p>
