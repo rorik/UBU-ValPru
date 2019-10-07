@@ -5,7 +5,7 @@ namespace GestorIncidencias.Models
 {
     public interface IContextoIncidencias
     {
-        IQueryable<Incidencia> Incidencias { get; set; }
-        IQueryable<Centro> Centros { get; set; }
+        IQueryable<Incidencia> Incidencias { get; }
+        IQueryable<Centro> Centros { get; }
     }
 }

@@ -5,31 +5,4 @@
 <h3>@ViewBag.Message</h3>
 
 
-<table style="width:100%">
-    <tr>
-        <th>Id</th>
-        <th>Timestamp</th>
-        <th>Asunto</th>
-        <th>Comentario</th>
-        <th>Centro</th>
-        <th>Aula</th>
-        <th>Equipo</th>
-        <th>¿Cerrada?</th>
-    </tr>
-    @for (int i = 0; i < ViewBag.ListaIncidenciasId.Count; i++)
-    {
-        <tr>
-            <td>@ViewBag.ListaIncidenciasId[i]</td>
-            <td>@ViewBag.ListaIncidenciasTimestamp[i]</td>
-            <td>@ViewBag.ListaIncidenciasAsunto[i]</td>
-            <td>@ViewBag.ListaIncidenciasComentario[i]</td>
-            <td>@ViewBag.ListaIncidenciasCentro[i]</td>
-            <td>@ViewBag.ListaIncidenciasAula[i]</td>
-            <td>@ViewBag.ListaIncidenciasEquipo[i]</td>
-            <td>@ViewBag.ListaIncidenciasCerrada[i]</td>
-        </tr>
-    }
-
-</table>
-
 <p>Use this area to provide additional information.</p>
