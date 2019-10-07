@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entidades
 {
     public class Incidencia
     {
+        [Key]
         public int IdIncidencia { get; set; }
         public DateTimeOffset Timestamp { get; set; }
         public string Asunto { get; set; }

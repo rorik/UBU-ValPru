@@ -19,7 +19,7 @@ namespace GestorIncidencias
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             Container container = new Container();
-            container.Register<IContextoIncidencias, ContextoDB>();
+            container.Register<ContextoIncidencias, ContextoTransistente>();
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
     }

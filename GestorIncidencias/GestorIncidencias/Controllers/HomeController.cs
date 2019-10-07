@@ -1,21 +1,16 @@
 ﻿using GestorIncidencias.Models;
-using Entidades;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using GestorIncidencias.Models.Binding;
 using System.Security.Claims;
-using Microsoft.AspNet.Identity;
 
 namespace GestorIncidencias.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IContextoIncidencias contexto = null;
+        private readonly ContextoIncidencias contexto = null;
 
-        public HomeController(IContextoIncidencias contexto)
+        public HomeController(ContextoIncidencias contexto)
         {
             this.contexto = contexto;
         }
