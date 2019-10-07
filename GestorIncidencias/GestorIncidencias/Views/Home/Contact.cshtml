@@ -1,17 +1,30 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Login";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+@model GestorIncidencias.Models.Binding.LoginQuery
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+    {
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th colspan="2" align="center">Person Details</th>
+            </tr>
+            <tr>
+                <td>Centro: </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Centro)
+                </td>
+            </tr>
+            <tr>
+                <td>Clave: </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Clave)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Login" /></td>
+            </tr>
+        </table>
+    }

@@ -16,9 +16,9 @@ namespace GestorIncidencias.Models
         {
             this.Centros = new[]
             {
-                new Centro() { IdCentro = "CentroA" },
-                new Centro() { IdCentro = "CentroB" },
-                new Centro() { IdCentro = "CentroC" },
+                new Centro() { IdCentro = "CentroA", Aulas = new List<string>(){ "1-1","1-2","2-1" }, ClaveUsuario = "1234", ClaveAdmin = "admin1234" },
+                new Centro() { IdCentro = "CentroB", Aulas = new List<string>(){ "a","b","c" }, ClaveUsuario = "aaa" },
+                new Centro() { IdCentro = "CentroC", Aulas = new List<string>(){ "0","1","2" }, ClaveUsuario = "bbb" },
             }.AsQueryable();
 
             this.Incidencias = new[]{
