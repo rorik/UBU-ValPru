@@ -1,8 +1,32 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Crear Incidencia";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
+<form>
+    <label for="aula">Aula</label>
+    <br>
+    <select>
+        @foreach (var aula in ViewBag.ListaAulas)
+        {
+            <option value="@aula">@aula</option>
+        }
+    </select>
+    <br>
 
-<p>Use this area to provide additional information.</p>
+    <label for="asunto">Asunto</label>
+    <br>
+    <input id="asunto">
+    <br>
+
+    <label for="comentario">Comentario</label>
+    <br>
+    <textarea id="comentario"></textarea>
+
+    <br>
+    <label for="equipo">Equipo</label>
+    <br>
+    <input id="equipo">
+    <br>
+
+    <input type="submit" name="post" value="Enviar">
+</form>

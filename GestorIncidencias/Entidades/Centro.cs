@@ -9,7 +9,7 @@ namespace Entidades
     public class Centro
     {
         public string IdCentro { get; set; }
-        public List<string> aulas { get; set; }
+        public List<string> Aulas { get; set; }
         public string ClaveUsuario { get; set; }
         public string ClaveAdmin { get; set; }
 
