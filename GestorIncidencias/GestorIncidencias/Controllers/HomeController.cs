@@ -19,44 +19,13 @@ namespace GestorIncidencias.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.ListaIncidencias = contexto.Incidencias.Where(incidencia => !incidencia.Cerrada).ToList();
             return View();
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
-            ViewBag.ListaIncidenciasId = contexto.Incidencias
-                                                    .Where(incidencia => incidencia.Cerrada == false)
-                                                    .Select(incidencia => incidencia.IdIncidencia).ToList();
-
-            ViewBag.ListaIncidenciasTimestamp = contexto.Incidencias
-                                                    .Where(incidencia => incidencia.Cerrada == false)
-                                                    .Select(incidencia => incidencia.Timestamp).ToList();
-
-            ViewBag.ListaIncidenciasAsunto = contexto.Incidencias
-                                                    .Where(incidencia => incidencia.Cerrada == false)
-                                                    .Select(incidencia => incidencia.Asunto).ToList();
-
-            ViewBag.ListaIncidenciasComentario = contexto.Incidencias
-                                                    .Where(incidencia => incidencia.Cerrada == false)
-                                                    .Select(incidencia => incidencia.Comentario).ToList();
-
-            ViewBag.ListaIncidenciasCentro = contexto.Incidencias
-                                                    .Where(incidencia => incidencia.Cerrada == false)
-                                                    .Select(incidencia => incidencia.Centro).ToList();
-
-            ViewBag.ListaIncidenciasAula = contexto.Incidencias
-                                                    .Where(incidencia => incidencia.Cerrada == false)
-                                                    .Select(incidencia => incidencia.Aula).ToList();
-
-            ViewBag.ListaIncidenciasEquipo = contexto.Incidencias
-                                                    .Where(incidencia => incidencia.Cerrada == false)
-                                                    .Select(incidencia => incidencia.Equipo).ToList();
-
-            ViewBag.ListaIncidenciasCerrada = contexto.Incidencias
-                                                    .Where(incidencia => incidencia.Cerrada == false)
-                                                    .Select(incidencia => incidencia.Cerrada).ToList();
 
             return View();
         }
