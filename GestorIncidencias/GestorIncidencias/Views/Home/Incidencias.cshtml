@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Incidencias";
+}
+
+<div class="row">
+    <div class="col-xl-12 py-2">
+        <table style="width:100%">
+            <tr>
+                <th>Id</th>
+                <th>Timestamp</th>
+                <th>Asunto</th>
+                <th>Comentario</th>
+                <th>Centro</th>
+                <th>Aula</th>
+                <th>Equipo</th>
+                <th>¿Cerrada?</th>
+            </tr>
+            @foreach (var incidencia in ViewBag.ListaIncidencias)
+            {
+                <tr>
+                    <td>@incidencia.IdIncidencia</td>
+                    <td>@incidencia.Timestamp</td>
+                    <td>@incidencia.Asunto</td>
+                    <td>@incidencia.Comentario</td>
+                    <td>@incidencia.Centro</td>
+                    <td>@incidencia.Aula</td>
+                    <td>@incidencia.Equipo</td>
+                    <td>@incidencia.Cerrada</td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

@@ -1,34 +1,30 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Login";
 }
 
-<div class="row">
-    <div class="col-xl-12 py-2">
-        <table style="width:100%">
-            <tr>
-                <th>Id</th>
-                <th>Timestamp</th>
-                <th>Asunto</th>
-                <th>Comentario</th>
-                <th>Centro</th>
-                <th>Aula</th>
-                <th>Equipo</th>
-                <th>¿Cerrada?</th>
-            </tr>
-            @foreach (var incidencia in ViewBag.ListaIncidencias)
-            {
-                <tr>
-                    <td>@incidencia.IdIncidencia</td>
-                    <td>@incidencia.Timestamp</td>
-                    <td>@incidencia.Asunto</td>
-                    <td>@incidencia.Comentario</td>
-                    <td>@incidencia.Centro</td>
-                    <td>@incidencia.Aula</td>
-                    <td>@incidencia.Equipo</td>
-                    <td>@incidencia.Cerrada</td>
-                </tr>
-            }
+@model GestorIncidencias.Models.Binding.LoginQuery
 
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th colspan="2" align="center">Person Details</th>
+            </tr>
+            <tr>
+                <td>Centro: </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Centro)
+                </td>
+            </tr>
+            <tr>
+                <td>Clave: </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Clave)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Login" /></td>
+            </tr>
         </table>
-    </div>
-</div>
+    }

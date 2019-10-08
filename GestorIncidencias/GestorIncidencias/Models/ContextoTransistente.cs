@@ -13,8 +13,8 @@ namespace GestorIncidencias.Models
             var centros = Centros.AddRange(new[]
             {
                 new Centro() { IdCentro = "CentroA", Aulas = new List<string>(){ "1-1","1-2","2-1" }, ClaveUsuario = "1234", ClaveAdmin = "admin1234" },
-                new Centro() { IdCentro = "CentroB", Aulas = new List<string>(){ "a","b","c" }, ClaveUsuario = "aaa" },
-                new Centro() { IdCentro = "CentroC", Aulas = new List<string>(){ "0","1","2" }, ClaveUsuario = "bbb" },
+                new Centro() { IdCentro = "CentroB", Aulas = new List<string>(){ "a","b","c" }, ClaveUsuario = "aaa", ClaveAdmin = "adminaaa" },
+                new Centro() { IdCentro = "CentroC", Aulas = new List<string>(){ "0","1","2" }, ClaveUsuario = "bbb", ClaveAdmin = "adminbbb" },
             }).ToArray();
 
             Incidencias.AddRange(new[]
