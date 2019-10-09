@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using GestorIncidencias.Models.Binding;
 using System.Security.Claims;
+using GestorIncidencias.Helpers;
 
 namespace GestorIncidencias.Controllers
 {
@@ -31,8 +32,8 @@ namespace GestorIncidencias.Controllers
                 return View();
             }
 
-            if (centro.ClaveUsuario == query.Clave)
-            {
+            if (CryptoTools.ValidateHash(query.Clave, centro.SaltUsuario, centro.ClaveUsuario))
+                {
                 var identity = NewUserIdentity((ClaimsIdentity)User.Identity);
 
 
@@ -40,7 +41,7 @@ namespace GestorIncidencias.Controllers
                 identity.AddClaim(new Claim(ClaimTypes.Role, Roles.User));
                 return RedirectToAction("About");
             }
-            else if (centro.ClaveAdmin == query.Clave)
+            else if (CryptoTools.ValidateHash(query.Clave, centro.SaltAdmin, centro.ClaveAdmin))
             {
                 var identity = NewUserIdentity((ClaimsIdentity)User.Identity);
                 

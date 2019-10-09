@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Effort;
 using Entidades;
+using GestorIncidencias.Helpers;
 
 namespace GestorIncidencias.Models
 {
@@ -17,6 +18,14 @@ namespace GestorIncidencias.Models
                 new Centro() { IdCentro = "CentroC", Aulas = new List<string>(){ "0","1","2" }, ClaveUsuario = "bbb", ClaveAdmin = "adminbbb" },
             }).ToArray();
 
+            foreach (Centro centro in centros)
+            {
+                centro.SaltUsuario = CryptoTools.GenerateSalt();
+                centro.ClaveUsuario = CryptoTools.GenerateHash(centro.ClaveUsuario, centro.SaltUsuario);
+                centro.SaltAdmin = CryptoTools.GenerateSalt();
+                centro.ClaveAdmin = CryptoTools.GenerateHash(centro.ClaveAdmin, centro.SaltAdmin);
+            }
+
             Incidencias.AddRange(new[]
             {
                 new Incidencia() { IdIncidencia = 1, Timestamp = DateTimeOffset.UtcNow, Asunto = "Incidencia 1", Comentario = "Comentario 1", Centro = centros[1], Aula = "Aula1", Equipo = "E11", Cerrada = true },
@@ -25,6 +34,9 @@ namespace GestorIncidencias.Models
                 new Incidencia() { IdIncidencia = 4, Timestamp = DateTimeOffset.UtcNow, Asunto = "Incidencia 4", Comentario = "Comentario 4", Centro = centros[2], Aula = "Aula4", Equipo = "E49", Cerrada = false },
                 new Incidencia() { IdIncidencia = 5, Timestamp = DateTimeOffset.UtcNow, Asunto = "Incidencia 5", Comentario = "Comentario 5", Centro = centros[2], Aula = "Aula5", Equipo = "E50", Cerrada = false }
             });
+
+            
+            
 
             SaveChanges();
         }

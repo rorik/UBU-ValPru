@@ -10,9 +10,9 @@ namespace Entidades
         public DateTimeOffset Timestamp { get; set; }
         public string Asunto { get; set; }
         public string Comentario { get; set; }
-        public Centro Centro { get; set; }
         public string Aula { get; set; }
         public string Equipo { get; set; }
         public bool Cerrada { get; set; }
+        public virtual Centro Centro { get; set; }
     }
 }
