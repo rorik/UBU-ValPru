@@ -35,19 +35,17 @@ namespace GestorIncidencias.Controllers
             {
                 var identity = NewUserIdentity((ClaimsIdentity)User.Identity);
 
-                //¿Utilizar un token en la BD para aceptar los campos en la identidad como ya verdaderos?
-                identity.AddClaim(new Claim("centro", centro.IdCentro));
-                identity.AddClaim(new Claim("clave", centro.ClaveUsuario));
 
+                identity.AddClaim(new Claim("centro", centro.IdCentro));
+                identity.AddClaim(new Claim(ClaimTypes.Role, Roles.User));
                 return RedirectToAction("About");
             }
             else if (centro.ClaveAdmin == query.Clave)
             {
                 var identity = NewUserIdentity((ClaimsIdentity)User.Identity);
-
-                //¿Utilizar un token en la BD para aceptar los campos en la identidad como ya verdaderos?
+                
                 identity.AddClaim(new Claim("centro", centro.IdCentro));
-                identity.AddClaim(new Claim("clave", centro.ClaveAdmin));
+                identity.AddClaim(new Claim(ClaimTypes.Role, Roles.Admin));
 
                 return RedirectToAction("Incidencias");
 
@@ -57,21 +55,16 @@ namespace GestorIncidencias.Controllers
 
         }
 
+
         public ActionResult Incidencias()
         {
             //Comprobacion de nulos
             var centro = GetUserCentro();
-            var clave = GetUserClave();
-            if (centro == null || clave == null)
+            var role = GetUserRole();
+            if (centro == null || role == null || role.Value != Roles.Admin)
             {
                 return RedirectToAction("Index");
             }
-            //Comprobacion de clave correcta. ¿Podria cambiarse por comprobación de un token?
-            var centroCheck = contexto.Centros.FirstOrDefault(c => c.IdCentro == centro.Value);
-            if (centroCheck.ClaveAdmin != clave.Value) {
-                return RedirectToAction("Index");
-            }
-
 
             //Comparar String puede ser inseguro
             ViewBag.ListaIncidencias = contexto.Incidencias.Where(incidencia => (!incidencia.Cerrada) && (incidencia.Centro.IdCentro == centro.Value)).ToList();
@@ -96,27 +89,33 @@ namespace GestorIncidencias.Controllers
             return ((ClaimsIdentity)User.Identity).FindFirst("centro");
         }
 
-        private Claim GetUserClave()
+        private Claim GetUserRole()
         {
-            return ((ClaimsIdentity)User.Identity).FindFirst("clave");
+            return ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Role);
         }
 
         //Crea o renueva la identificacion del usuario al logearse
         private ClaimsIdentity NewUserIdentity(ClaimsIdentity identity)
         {
             var previousCentro = GetUserCentro();
-            var previousClave = GetUserClave();
+            var previousRole = GetUserRole();
             if (previousCentro != null)
             {
                 identity.RemoveClaim(previousCentro);
             }
 
-            if (previousClave != null)
+            if (previousRole != null)
             {
-                identity.RemoveClaim(previousClave);
+                identity.RemoveClaim(previousRole);
             }
 
             return identity;
+        }
+
+        private static class Roles
+        {
+            public const string User = "u";
+            public const string Admin = "a";
         }
     }
 }
