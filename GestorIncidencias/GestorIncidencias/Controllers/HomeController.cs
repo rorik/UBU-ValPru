@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using GestorIncidencias.Models.Binding;
 using System.Security.Claims;
 using GestorIncidencias.Helpers;
+using System.Security.Principal;
 
 namespace GestorIncidencias.Controllers
 {
@@ -32,28 +33,29 @@ namespace GestorIncidencias.Controllers
                 return View();
             }
 
+            string action = null;
+            string role = null;
+
             if (CryptoTools.ValidateHash(query.Clave, centro.SaltUsuario, centro.ClaveUsuario))
-                {
-                var identity = NewUserIdentity((ClaimsIdentity)User.Identity);
-
-
-                identity.AddClaim(new Claim("centro", centro.IdCentro));
-                identity.AddClaim(new Claim(ClaimTypes.Role, Roles.User));
-                return RedirectToAction("About");
+            {
+                action = "Create";
+                role = Roles.User;
             }
             else if (CryptoTools.ValidateHash(query.Clave, centro.SaltAdmin, centro.ClaveAdmin))
             {
-                var identity = NewUserIdentity((ClaimsIdentity)User.Identity);
-                
+                action = "Incidencias";
+                role = Roles.Admin;
+            }
+
+            if (action != null)
+            {
+                var identity = NewUserIdentity(User.Identity);
                 identity.AddClaim(new Claim("centro", centro.IdCentro));
-                identity.AddClaim(new Claim(ClaimTypes.Role, Roles.Admin));
-
-                return RedirectToAction("Incidencias");
-
+                identity.AddClaim(new Claim(ClaimTypes.Role, role));
+                return RedirectToAction(action);
             }
 
             return View();
-
         }
 
 
@@ -73,7 +75,7 @@ namespace GestorIncidencias.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Create()
         {
             var centro = GetUserCentro();
             if (centro == null)
@@ -96,21 +98,22 @@ namespace GestorIncidencias.Controllers
         }
 
         //Crea o renueva la identificacion del usuario al logearse
-        private ClaimsIdentity NewUserIdentity(ClaimsIdentity identity)
+        private ClaimsIdentity NewUserIdentity(IIdentity identity)
         {
+            var newIdentity = (ClaimsIdentity)identity;
             var previousCentro = GetUserCentro();
             var previousRole = GetUserRole();
             if (previousCentro != null)
             {
-                identity.RemoveClaim(previousCentro);
+                newIdentity.RemoveClaim(previousCentro);
             }
 
             if (previousRole != null)
             {
-                identity.RemoveClaim(previousRole);
+                newIdentity.RemoveClaim(previousRole);
             }
 
-            return identity;
+            return newIdentity;
         }
 
         private static class Roles
