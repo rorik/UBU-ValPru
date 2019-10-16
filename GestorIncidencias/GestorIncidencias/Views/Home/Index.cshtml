@@ -12,4 +12,10 @@
     <label class="sr-only" for="clave">Clave</label>
     @Html.TextBoxFor(m => m.Clave, new { @class = "form-control", @id = "clave", @type = "clave", @placeholder = "Clave" })
     <button type="submit" class="btn btn-lg btn-secondary btn-block mt-md-4 mt-3">Login</button>
+    if (ViewBag.MensajeError != "")
+    {
+        <div class="alert alert-danger mt-3" role="alert">
+            @ViewBag.MensajeError
+        </div>
+    }
 }
