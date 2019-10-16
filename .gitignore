@@ -2,3 +2,5 @@
 **/bin
 **/obj
 **/packages
+/GestorIncidencias/GestorIncidencias/Scripts
+/GestorIncidencias/GestorIncidencias/Content/bootstrap*
