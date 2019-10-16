@@ -172,6 +172,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CryptoTools.cs" />
+    <Compile Include="Models\Binding\CreateQuery.cs" />
     <Compile Include="Models\Binding\LoginQuery.cs" />
     <Compile Include="Models\ContextoTransistente.cs" />
     <Compile Include="Models\ContextoIncidencias.cs" />

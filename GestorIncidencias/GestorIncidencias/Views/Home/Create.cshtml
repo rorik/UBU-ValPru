@@ -2,7 +2,8 @@
     ViewBag.Title = "Crear Incidencia";
 }
 
-<form>
+@using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "create-form display-flex flex-column my-0 mx-auto" }))
+{
     <label for="aula">Aula</label>
     <br>
     <select>
@@ -29,4 +30,4 @@
     <br>
 
     <input type="submit" name="post" value="Enviar">
-</form>
+}
