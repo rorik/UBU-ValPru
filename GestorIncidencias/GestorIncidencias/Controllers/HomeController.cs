@@ -20,6 +20,7 @@ namespace GestorIncidencias.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            ViewBag.MensajeError = "";
             return View();
         }
 
@@ -30,6 +31,7 @@ namespace GestorIncidencias.Controllers
 
             if (centro == null)
             {
+                ViewBag.MensajeError = "Centro inválido.";
                 return View();
             }
 
@@ -53,9 +55,10 @@ namespace GestorIncidencias.Controllers
                 identity.AddClaim(new Claim("centro", centro.IdCentro));
                 identity.AddClaim(new Claim(ClaimTypes.Role, role));
                 return RedirectToAction(action);
+            }else{
+                ViewBag.MensajeError = "Contraseña incorrecta.";
+                return View();
             }
-
-            return View();
         }
 
 
