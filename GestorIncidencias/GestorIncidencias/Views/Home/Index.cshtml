@@ -8,11 +8,11 @@
 {
     <h1 class="display-3 text-center mb-md-4 mb-3">Login</h1>
     <label class="sr-only" for="centro">Centro</label>
-    @Html.TextBoxFor(m => m.Centro, new { @class = "form-control", @id = "centro", @type = "centro", @placeholder = "Introdudir centro" })
+    @Html.TextBoxFor(m => m.Centro, new { @class = "form-control", @id = "centro", @type = "text", @placeholder = "Introdudir centro" })
     <label class="sr-only" for="clave">Clave</label>
-    @Html.TextBoxFor(m => m.Clave, new { @class = "form-control", @id = "clave", @type = "clave", @placeholder = "Clave" })
+    @Html.TextBoxFor(m => m.Clave, new { @class = "form-control", @id = "clave", @type = "password", @placeholder = "Clave" })
     <button type="submit" class="btn btn-lg btn-secondary btn-block mt-md-4 mt-3">Login</button>
-    if (ViewBag.MensajeError != "")
+    if (!string.IsNullOrEmpty(ViewBag.MensajeError))
     {
         <div class="alert alert-danger mt-3" role="alert">
             @ViewBag.MensajeError

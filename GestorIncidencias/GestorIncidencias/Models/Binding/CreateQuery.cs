@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace GestorIncidencias.Models.Binding
+﻿namespace GestorIncidencias.Models.Binding
 {
     public class CreateQuery
     {

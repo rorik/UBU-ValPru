@@ -2,32 +2,33 @@
     ViewBag.Title = "Crear Incidencia";
 }
 
+@model GestorIncidencias.Models.Binding.CreateQuery
+
 @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "create-form display-flex flex-column my-0 mx-auto" }))
 {
     <label for="aula">Aula</label>
-    <br>
-    <select>
-        @foreach (var aula in ViewBag.ListaAulas)
-        {
-            <option value="@aula">@aula</option>
-        }
-    </select>
-    <br>
+    @Html.DropDownListFor(m => m.Aula, (SelectList)ViewBag.ListaAulas, new { @class = "form-control", @id = "aula" })
 
     <label for="asunto">Asunto</label>
-    <br>
-    <input id="asunto">
-    <br>
+    @Html.TextBoxFor(m => m.Asunto, new { @class = "form-control", @id = "asunto", @type = "text" })
 
     <label for="comentario">Comentario</label>
-    <br>
-    <textarea id="comentario"></textarea>
+    @Html.TextAreaFor(m => m.Comentario, new { @class = "form-control", @id = "comentario", @type = "text" })
 
-    <br>
     <label for="equipo">Equipo</label>
-    <br>
-    <input id="equipo">
-    <br>
+    @Html.TextBoxFor(m => m.Equipo, new { @class = "form-control", @id = "equipo", @type = "text" })
 
     <input type="submit" name="post" value="Enviar">
+    if (!string.IsNullOrEmpty(ViewBag.MensajeError))
+    {
+        <div class="alert alert-danger mt-3" role="alert">
+            @ViewBag.MensajeError
+        </div>
+    }
+    if (!string.IsNullOrEmpty(ViewBag.MensajeOk))
+    {
+        <div class="alert alert-success mt-3" role="alert">
+            @ViewBag.MensajeOk
+        </div>
+    }
 }

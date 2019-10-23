@@ -3,6 +3,8 @@ using System.Linq;
 using System.Web.Mvc;
 using GestorIncidencias.Models.Binding;
 using GestorIncidencias.Helpers;
+using Entidades;
+using System;
 
 namespace GestorIncidencias.Controllers
 {
@@ -70,11 +72,13 @@ namespace GestorIncidencias.Controllers
             }
 
             //Comparar String puede ser inseguro
+            var inc = contexto.Incidencias.ToList();
             ViewBag.ListaIncidencias = contexto.Incidencias.Where(incidencia => (!incidencia.Cerrada) && (incidencia.Centro.IdCentro == centro.IdCentro)).ToList();
 
             return View();
         }
 
+        [HttpGet]
         public ActionResult Create()
         {
             var centro = SesionUsuario?.Centro;
@@ -82,9 +86,45 @@ namespace GestorIncidencias.Controllers
             {
                 return RedirectToAction("Index");
             }
-            ViewBag.ListaAulas = centro.Aulas?.ToArray() ?? new string[] { };
+            ViewBag.ListaAulas = new SelectList(centro.Aulas?.ToArray() ?? new string[] { }); ;
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Create(CreateQuery query)
+        {
+            var centro = SesionUsuario?.Centro;
+            if (centro == null)
+            {
+                return RedirectToAction("Index");
+            }
+            if (string.IsNullOrEmpty(query.Aula) || !centro.Aulas.Contains(query.Aula))
+            {
+                ViewBag.MensajeError = "Aula no válida.";
+            }
+            else if (string.IsNullOrWhiteSpace(query.Asunto))
+            {
+                ViewBag.MensajeError = "Asunto no puede estar vacio.";
+            }
+            else
+            {
+                Incidencia incidencia = new Incidencia()
+                {
+                    IdIncidencia = 6,
+                    Timestamp = DateTime.UtcNow,
+                    Asunto = query.Asunto,
+                    Comentario = query.Comentario,
+                    Aula = query.Aula,
+                    Equipo = query.Equipo,
+                    Cerrada = false,
+                    Centro = centro
+                };
+                contexto.Incidencias.Add(incidencia);
+                contexto.SaveChangesAsync();
+                ViewBag.MensajeOk = "La incidendia ha sido enviada correctamente.";
+            }
+
+            return Create();
+        }
     }
 }

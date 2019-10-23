@@ -7,7 +7,7 @@ namespace Entidades
     {
         [Key]
         public int IdIncidencia { get; set; }
-        public DateTimeOffset Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
         public string Asunto { get; set; }
         public string Comentario { get; set; }
         public string Aula { get; set; }
