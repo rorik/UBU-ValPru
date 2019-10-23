@@ -2,15 +2,15 @@
 using System.Linq;
 using System.Web.Mvc;
 using GestorIncidencias.Models.Binding;
-using System.Security.Claims;
 using GestorIncidencias.Helpers;
-using System.Security.Principal;
 
 namespace GestorIncidencias.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ContextoIncidencias contexto = null;
+
+        public SesionUsuario SesionUsuario { get { return Session["usuario"] as SesionUsuario; } set { Session["usuario"] = value; } }
 
         public HomeController(ContextoIncidencias contexto)
         {
@@ -36,93 +36,55 @@ namespace GestorIncidencias.Controllers
             }
 
             string action = null;
-            string role = null;
+            var sesion = new SesionUsuario() { Centro = centro };
 
             if (CryptoTools.ValidateHash(query.Clave, centro.SaltUsuario, centro.ClaveUsuario))
             {
                 action = "Create";
-                role = Roles.User;
+                sesion.EsAdmin = false;
             }
             else if (CryptoTools.ValidateHash(query.Clave, centro.SaltAdmin, centro.ClaveAdmin))
             {
                 action = "Incidencias";
-                role = Roles.Admin;
+                sesion.EsAdmin = true;
             }
-
-            if (action != null)
+            else
             {
-                var identity = NewUserIdentity(User.Identity);
-                identity.AddClaim(new Claim("centro", centro.IdCentro));
-                identity.AddClaim(new Claim(ClaimTypes.Role, role));
-                return RedirectToAction(action);
-            }else{
                 ViewBag.MensajeError = "Contraseña incorrecta.";
+                SesionUsuario = null;
                 return View();
             }
+
+            SesionUsuario = sesion;
+            return RedirectToAction(action);
         }
 
 
         public ActionResult Incidencias()
         {
             //Comprobacion de nulos
-            var centro = GetUserCentro();
-            var role = GetUserRole();
-            if (centro == null || role == null || role.Value != Roles.Admin)
+            var centro = SesionUsuario.Centro;
+            if (SesionUsuario?.Centro == null || !SesionUsuario.EsAdmin)
             {
                 return RedirectToAction("Index");
             }
 
             //Comparar String puede ser inseguro
-            ViewBag.ListaIncidencias = contexto.Incidencias.Where(incidencia => (!incidencia.Cerrada) && (incidencia.Centro.IdCentro == centro.Value)).ToList();
+            ViewBag.ListaIncidencias = contexto.Incidencias.Where(incidencia => (!incidencia.Cerrada) && (incidencia.Centro.IdCentro == centro.IdCentro)).ToList();
 
             return View();
         }
 
         public ActionResult Create()
         {
-            var centro = GetUserCentro();
+            var centro = SesionUsuario?.Centro;
             if (centro == null)
             {
                 return RedirectToAction("Index");
             }
-            ViewBag.Message = "Your application description page.";
-            ViewBag.ListaAulas = contexto.Centros.FirstOrDefault(c => c.IdCentro == centro.Value)?.Aulas?.ToArray() ?? new string[] { };
+            ViewBag.ListaAulas = centro.Aulas?.ToArray() ?? new string[] { };
             return View();
         }
 
-        private Claim GetUserCentro()
-        {
-            return ((ClaimsIdentity)User.Identity).FindFirst("centro");
-        }
-
-        private Claim GetUserRole()
-        {
-            return ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Role);
-        }
-
-        //Crea o renueva la identificacion del usuario al logearse
-        private ClaimsIdentity NewUserIdentity(IIdentity identity)
-        {
-            var newIdentity = (ClaimsIdentity)identity;
-            var previousCentro = GetUserCentro();
-            var previousRole = GetUserRole();
-            if (previousCentro != null)
-            {
-                newIdentity.RemoveClaim(previousCentro);
-            }
-
-            if (previousRole != null)
-            {
-                newIdentity.RemoveClaim(previousRole);
-            }
-
-            return newIdentity;
-        }
-
-        private static class Roles
-        {
-            public const string User = "u";
-            public const string Admin = "a";
-        }
     }
 }

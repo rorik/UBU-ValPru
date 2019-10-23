@@ -60,9 +60,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.WebFormsDependencyInjection.Unity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebFormsDependencyInjection.Unity.1.0.0\lib\Net472\Microsoft.AspNet.WebFormsDependencyInjection.Unity.dll</HintPath>
     </Reference>
@@ -176,6 +173,7 @@
     <Compile Include="Models\Binding\LoginQuery.cs" />
     <Compile Include="Models\ContextoTransistente.cs" />
     <Compile Include="Models\ContextoIncidencias.cs" />
+    <Compile Include="Models\SesionUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
