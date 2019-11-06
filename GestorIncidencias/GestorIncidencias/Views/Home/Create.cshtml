@@ -17,8 +17,7 @@
 
     <label for="equipo">Equipo</label>
     @Html.TextBoxFor(m => m.Equipo, new { @class = "form-control", @id = "equipo", @type = "text" })
-
-    <input type="submit" name="post" value="Enviar">
+    <button id="crearIncidencia" type="submit" class="btn btn-primary mt-3">Enviar</button>
     if (!string.IsNullOrEmpty(ViewBag.MensajeError))
     {
         <div class="alert alert-danger mt-3" role="alert">

@@ -11,7 +11,7 @@
 <body>
     <div>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("Gestor Incidencias", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,18 +24,17 @@
                     <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Create" ? "active" : "")">
                         @Html.ActionLink("Crear Incidencia", "Create", "Home", new { area = "" }, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Incidencias" ? "active" : "")">
-                        @Html.ActionLink("Incidencias (Admin)", "Incidencias", "Home", new { area = "" }, new { @class = "nav-link" })
-                    </li>
+                    @if (Html.Action("IsAdmin", "Home").ToString() == "True") {
+                        <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Incidencias" ? "active" : "")">
+                            @Html.ActionLink("Incidencias (Admin)", "Incidencias", "Home", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+
+                    }
                 </ul>
             </div>
         </nav>
         <div class="container body-content p-xl-5 p-md-4 p-3">
             @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>
         </div>
     </div>
 

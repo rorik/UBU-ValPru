@@ -2,6 +2,7 @@
     ViewBag.Title = "Incidencias";
 }
 
+
 <div class="row">
     <div class="col-xl-12 py-2">
         <table style="width:100%">
@@ -13,19 +14,26 @@
                 <th>Centro</th>
                 <th>Aula</th>
                 <th>Equipo</th>
-                <th>¿Cerrada?</th>
+                <th>Cerrar</th>
             </tr>
-            @foreach (var incidencia in ViewBag.ListaIncidencias)
+            @for (int i = 0; i < ViewBag.ListaIncidencias.Count; i++)
             {
+
                 <tr>
-                    <td>@incidencia.IdIncidencia</td>
-                    <td>@incidencia.Timestamp</td>
-                    <td>@incidencia.Asunto</td>
-                    <td>@incidencia.Comentario</td>
-                    <td>@incidencia.Centro</td>
-                    <td>@incidencia.Aula</td>
-                    <td>@incidencia.Equipo</td>
-                    <td>@incidencia.Cerrada</td>
+                    <td>@ViewBag.ListaIncidencias[i].IdIncidencia</td>
+                    <td>@ViewBag.ListaIncidencias[i].Timestamp</td>
+                    <td>@ViewBag.ListaIncidencias[i].Asunto</td>
+                    <td>@ViewBag.ListaIncidencias[i].Comentario</td>
+                    <td>@ViewBag.ListaIncidencias[i].CentroId</td>
+                    <td>@ViewBag.ListaIncidencias[i].Aula</td>
+                    <td>@ViewBag.ListaIncidencias[i].Equipo</td>
+
+                    <td>
+                        @using (Html.BeginForm("Cerrar", "Home", new { area = "", idIncidencia = ViewBag.ListaIncidencias[i].IdIncidencia }, FormMethod.Post))
+                        {
+                            <button id="cerrar-@i" type="submit" class="btn btn-primary">Cerrar</button>
+                        }
+                    </td>
                 </tr>
             }
 

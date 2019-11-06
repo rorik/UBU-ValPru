@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entidades
 {
@@ -13,6 +14,9 @@ namespace Entidades
         public string Aula { get; set; }
         public string Equipo { get; set; }
         public bool Cerrada { get; set; }
+
+        [ForeignKey("Centro")]
+        public string CentroId { get; set; }
         public virtual Centro Centro { get; set; }
     }
 }

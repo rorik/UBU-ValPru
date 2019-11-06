@@ -7,7 +7,7 @@ namespace Entidades
     {
         [Key]
         public string IdCentro { get; set; }
-        public ICollection<string> Aulas { get; set; }
+        public string Aulas { get; set; }
         public string ClaveUsuario { get; set; }
         public string ClaveAdmin { get; set; }
         public byte[] SaltUsuario { get; set; }

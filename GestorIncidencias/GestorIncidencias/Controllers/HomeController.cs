@@ -65,7 +65,6 @@ namespace GestorIncidencias.Controllers
         public ActionResult Incidencias()
         {
             //Comprobacion de nulos
-            var centro = SesionUsuario.Centro;
             if (SesionUsuario?.Centro == null || !SesionUsuario.EsAdmin)
             {
                 return RedirectToAction("Index");
@@ -73,7 +72,7 @@ namespace GestorIncidencias.Controllers
 
             //Comparar String puede ser inseguro
             var inc = contexto.Incidencias.ToList();
-            ViewBag.ListaIncidencias = contexto.Incidencias.Where(incidencia => (!incidencia.Cerrada) && (incidencia.Centro.IdCentro == centro.IdCentro)).ToList();
+            ViewBag.ListaIncidencias = contexto.Incidencias.Where(incidencia => (!incidencia.Cerrada) && (incidencia.Centro.IdCentro == SesionUsuario.Centro.IdCentro)).ToList();
 
             return View();
         }
@@ -86,7 +85,7 @@ namespace GestorIncidencias.Controllers
             {
                 return RedirectToAction("Index");
             }
-            ViewBag.ListaAulas = new SelectList(centro.Aulas?.ToArray() ?? new string[] { }); ;
+            ViewBag.ListaAulas = new SelectList(centro.Aulas?.Split(';') ?? new string[] { }); ;
             return View();
         }
 
@@ -110,21 +109,36 @@ namespace GestorIncidencias.Controllers
             {
                 Incidencia incidencia = new Incidencia()
                 {
-                    IdIncidencia = 6,
                     Timestamp = DateTime.UtcNow,
                     Asunto = query.Asunto,
                     Comentario = query.Comentario,
                     Aula = query.Aula,
                     Equipo = query.Equipo,
                     Cerrada = false,
-                    Centro = centro
+                    CentroId = centro.IdCentro
                 };
                 contexto.Incidencias.Add(incidencia);
-                contexto.SaveChangesAsync();
+                contexto.SaveChanges();
                 ViewBag.MensajeOk = "La incidendia ha sido enviada correctamente.";
             }
 
             return Create();
+        }
+
+        [HttpPost]
+        public ActionResult Cerrar(int idIncidencia)
+        {
+            var incidencia = contexto.Incidencias.FirstOrDefault(i => i.IdIncidencia == idIncidencia);
+            if (incidencia != null)
+            {
+                incidencia.Cerrada = true;
+                contexto.SaveChanges();
+            }
+            return RedirectToAction("Incidencias");
+        }
+        public string IsAdmin()
+        {
+            return (SesionUsuario?.Centro != null && SesionUsuario.EsAdmin).ToString();
         }
     }
 }
