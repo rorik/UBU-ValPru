@@ -85,7 +85,7 @@ namespace GestorIncidencias.Controllers
             {
                 return RedirectToAction("Index");
             }
-            ViewBag.ListaAulas = new SelectList(centro.Aulas?.Split(';') ?? new string[] { }); ;
+            ViewBag.ListaAulas = new SelectList(centro.ListaAulas ?? new string[] { }); ;
             return View();
         }
 
@@ -97,7 +97,7 @@ namespace GestorIncidencias.Controllers
             {
                 return RedirectToAction("Index");
             }
-            if (string.IsNullOrEmpty(query.Aula) || !centro.Aulas.Contains(query.Aula))
+            if (string.IsNullOrEmpty(query.Aula) || centro.ListaAulas.Length == 0 || !centro.ListaAulas.Contains(query.Aula))
             {
                 ViewBag.MensajeError = "Aula no válida.";
             }
@@ -136,9 +136,22 @@ namespace GestorIncidencias.Controllers
             }
             return RedirectToAction("Incidencias");
         }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            SesionUsuario = null;
+            return RedirectToAction("Index");
+        }
+
         public string IsAdmin()
         {
             return (SesionUsuario?.Centro != null && SesionUsuario.EsAdmin).ToString();
+        }
+
+        public string IsLoggedIn()
+        {
+            return (SesionUsuario?.Centro != null).ToString();
         }
     }
 }
