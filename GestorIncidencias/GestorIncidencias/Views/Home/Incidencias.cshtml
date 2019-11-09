@@ -20,13 +20,13 @@
             {
 
                 <tr>
-                    <td>@ViewBag.ListaIncidencias[i].IdIncidencia</td>
-                    <td>@ViewBag.ListaIncidencias[i].Timestamp</td>
-                    <td>@ViewBag.ListaIncidencias[i].Asunto</td>
-                    <td>@ViewBag.ListaIncidencias[i].Comentario</td>
-                    <td>@ViewBag.ListaIncidencias[i].CentroId</td>
-                    <td>@ViewBag.ListaIncidencias[i].Aula</td>
-                    <td>@ViewBag.ListaIncidencias[i].Equipo</td>
+                    <td id="Id-@i">@ViewBag.ListaIncidencias[i].IdIncidencia</td>
+                    <td id="Timestamp-@i">@ViewBag.ListaIncidencias[i].Timestamp</td>
+                    <td id="Asunto-@i">@ViewBag.ListaIncidencias[i].Asunto</td>
+                    <td id="Comentario-@i">@ViewBag.ListaIncidencias[i].Comentario</td>
+                    <td id="Centro-@i">@ViewBag.ListaIncidencias[i].CentroId</td>
+                    <td id="Aula-@i">@ViewBag.ListaIncidencias[i].Aula</td>
+                    <td id="Equipo-@i">@ViewBag.ListaIncidencias[i].Equipo</td>
 
                     <td>
                         @using (Html.BeginForm("Cerrar", "Home", new { area = "", idIncidencia = ViewBag.ListaIncidencias[i].IdIncidencia }, FormMethod.Post))

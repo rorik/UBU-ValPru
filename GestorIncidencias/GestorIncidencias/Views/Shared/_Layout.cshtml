@@ -17,20 +17,29 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
-                        @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Create" ? "active" : "")">
-                        @Html.ActionLink("Crear Incidencia", "Create", "Home", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    @if (Html.Action("IsAdmin", "Home").ToString() == "True") {
-                        <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Incidencias" ? "active" : "")">
-                            @Html.ActionLink("Incidencias (Admin)", "Incidencias", "Home", new { area = "" }, new { @class = "nav-link" })
+                @if (Html.Action("IsLoggedIn", "Home").ToString() == "True")
+                {
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Create" ? "active" : "")">
+                            @Html.ActionLink("Crear Incidencia", "Create", "Home", new { area = "" }, new { @class = "nav-link" })
                         </li>
-
-                    }
-                </ul>
+                        @if (Html.Action("IsAdmin", "Home").ToString() == "True")
+                        {
+                            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Incidencias" ? "active" : "")">
+                                @Html.ActionLink("Incidencias (Admin)", "Incidencias", "Home", new { area = "" }, new { @class = "nav-link" })
+                            </li>
+                        }
+                    </ul>
+                    @Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "btn btn-outline-light" })
+                }
+                else
+                {
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                            @Html.ActionLink("Login", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                }
             </div>
         </nav>
         <div class="container body-content p-xl-5 p-md-4 p-3">
