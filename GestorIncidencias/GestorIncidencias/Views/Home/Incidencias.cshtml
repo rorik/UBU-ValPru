@@ -18,15 +18,14 @@
             </tr>
             @for (int i = 0; i < ViewBag.ListaIncidencias.Count; i++)
             {
-
                 <tr>
-                    <td>@ViewBag.ListaIncidencias[i].IdIncidencia</td>
-                    <td>@ViewBag.ListaIncidencias[i].Timestamp</td>
-                    <td>@ViewBag.ListaIncidencias[i].Asunto</td>
-                    <td>@ViewBag.ListaIncidencias[i].Comentario</td>
-                    <td>@ViewBag.ListaIncidencias[i].CentroId</td>
-                    <td>@ViewBag.ListaIncidencias[i].Aula</td>
-                    <td>@ViewBag.ListaIncidencias[i].Equipo</td>
+                    <td id="idIncidencia-@i">@ViewBag.ListaIncidencias[i].IdIncidencia</td>
+                    <td id="timestamp-@i">@ViewBag.ListaIncidencias[i].Timestamp</td>
+                    <td id="asunto-@i">@ViewBag.ListaIncidencias[i].Asunto</td>
+                    <td id="comentario-@i">@ViewBag.ListaIncidencias[i].Comentario</td>
+                    <td id="centroId">@ViewBag.ListaIncidencias[i].CentroId</td>
+                    <td id="aula-@i">@ViewBag.ListaIncidencias[i].Aula</td>
+                    <td id="equipo-@i">@ViewBag.ListaIncidencias[i].Equipo</td>
 
                     <td>
                         @using (Html.BeginForm("Cerrar", "Home", new { area = "", idIncidencia = ViewBag.ListaIncidencias[i].IdIncidencia }, FormMethod.Post))
@@ -36,7 +35,6 @@
                     </td>
                 </tr>
             }
-
         </table>
     </div>
 </div>

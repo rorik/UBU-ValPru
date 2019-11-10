@@ -11,10 +11,10 @@
     @Html.TextBoxFor(m => m.Centro, new { @class = "form-control", @id = "centro", @type = "text", @placeholder = "Introdudir centro" })
     <label class="sr-only" for="clave">Clave</label>
     @Html.TextBoxFor(m => m.Clave, new { @class = "form-control", @id = "clave", @type = "password", @placeholder = "Clave" })
-    <button type="submit" class="btn btn-lg btn-secondary btn-block mt-md-4 mt-3">Login</button>
+    <button id="Login" type="submit" class="btn btn-lg btn-secondary btn-block mt-md-4 mt-3">Login</button>
     if (!string.IsNullOrEmpty(ViewBag.MensajeError))
     {
-        <div class="alert alert-danger mt-3" role="alert">
+        <div id="Error" class="alert alert-danger mt-3" role="alert">
             @ViewBag.MensajeError
         </div>
     }

@@ -6,27 +6,27 @@
 
 @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "create-form display-flex flex-column my-0 mx-auto" }))
 {
-    <label for="aula">Aula</label>
+    <label id="aula-label" for="aula">Aula</label>
     @Html.DropDownListFor(m => m.Aula, (SelectList)ViewBag.ListaAulas, new { @class = "form-control", @id = "aula" })
 
-    <label for="asunto">Asunto</label>
+    <label id="asunto-label" for="asunto">Asunto</label>
     @Html.TextBoxFor(m => m.Asunto, new { @class = "form-control", @id = "asunto", @type = "text" })
 
-    <label for="comentario">Comentario</label>
+    <label id="comentario-label" for="comentario">Comentario</label>
     @Html.TextAreaFor(m => m.Comentario, new { @class = "form-control", @id = "comentario", @type = "text" })
 
-    <label for="equipo">Equipo</label>
+    <label id="equipo-label" for="equipo">Equipo</label>
     @Html.TextBoxFor(m => m.Equipo, new { @class = "form-control", @id = "equipo", @type = "text" })
     <button id="crearIncidencia" type="submit" class="btn btn-primary mt-3">Enviar</button>
     if (!string.IsNullOrEmpty(ViewBag.MensajeError))
     {
-        <div class="alert alert-danger mt-3" role="alert">
+        <div id="error-message" class="alert alert-danger mt-3" role="alert">
             @ViewBag.MensajeError
         </div>
     }
     if (!string.IsNullOrEmpty(ViewBag.MensajeOk))
     {
-        <div class="alert alert-success mt-3" role="alert">
+        <div id="ok-message" class="alert alert-success mt-3" role="alert">
             @ViewBag.MensajeOk
         </div>
     }
