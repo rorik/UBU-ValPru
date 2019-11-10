@@ -12,7 +12,7 @@ namespace GestorIncidencias.Controllers
     {
         private readonly ContextoIncidencias contexto = null;
 
-        public SesionUsuario SesionUsuario { get { return Session["usuario"] as SesionUsuario; } set { Session["usuario"] = value; } }
+        private SesionUsuario SesionUsuario { get { return Session["usuario"] as SesionUsuario; } set { Session["usuario"] = value; } }
 
         public HomeController(ContextoIncidencias contexto)
         {

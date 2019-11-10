@@ -1,0 +1,19 @@
+title CU-03
+
+actor Administrador
+participant Views
+participant Controller
+participant Contexto (DB)
+
+Administrador->Views:<<get>>/Incidencias
+activate Views
+Views->Controller:<<get>>Incidencias()
+activate Controller
+Controller->Contexto (DB):Incidencias
+activate Contexto (DB)
+Controller<--Contexto (DB):
+deactivate Contexto (DB)
+Views<--Controller:
+deactivate Controller
+Administrador<--Views:
+deactivate Views

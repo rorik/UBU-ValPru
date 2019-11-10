@@ -1,0 +1,19 @@
+title CU-07
+
+actor Usuario No Logueado
+participant Views
+participant Controller
+
+activate Usuario No Logueado
+Usuario No Logueado->Views:<<get>>/crear
+activate Views
+Views->Controller:<<get>>Crear()
+activate Controller
+Views<--Controller:Redirect ( Index )
+deactivate Controller
+Views->Controller:<<get>>Index()
+activate Controller
+Views<--Controller:
+deactivate Controller
+Usuario No Logueado<--Views:
+deactivate Views

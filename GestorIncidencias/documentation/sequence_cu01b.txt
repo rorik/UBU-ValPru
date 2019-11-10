@@ -1,0 +1,34 @@
+title CU-01b
+
+actor Admin
+participant Views
+participant Controller
+participant Contexto (DB)
+
+
+activate Admin
+Admin->Views:<<get>>/
+activate Views
+Views->Controller:<<get>>Index()
+activate Controller
+Views<--Controller:
+deactivate Controller
+Admin<--Views:
+deactivate Views
+Admin->Views:<<click>>login
+activate Views
+Views->Controller:<<post>>Index()
+activate Controller
+Controller->Contexto (DB):Centros
+activate Contexto (DB)
+Controller<--Contexto (DB):
+deactivate Contexto (DB)
+Views<--Controller:Redirect ( Incidencias )
+deactivate Controller
+Views->Controller:<<get>>Incidencias()
+activate Controller
+Views<--Controller:
+deactivate Controller
+Admin<--Views:
+
+deactivate Views

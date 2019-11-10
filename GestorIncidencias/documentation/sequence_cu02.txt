@@ -1,0 +1,42 @@
+title CU-02
+
+actor Usuario
+participant Views
+participant Controller
+participant Contexto (DB)
+
+
+
+Usuario->Views:<<get>>/Crear
+activate Views
+Views->Controller:<<get>>Crear()
+activate Controller
+Views<--Controller:
+deactivate Controller
+Usuario<--Views:
+deactivate Views
+
+
+Usuario->Views:<<click>>crear
+activate Views
+Views->Controller:<<post>>Crear()
+activate Controller
+Controller->Contexto (DB):Centros.Add(centro)
+activate Contexto (DB)
+Controller<--Contexto (DB):
+deactivate Contexto (DB)
+Views<--Controller:
+deactivate Controller
+Usuario<--Views:ok
+deactivate Views
+
+alt Error
+Usuario->Views:<<click>>crear
+activate Views
+Views->Controller:<<post>>Crear()
+activate Controller
+Views<--Controller:
+deactivate Controller
+Usuario<--Views:error
+deactivate Views
+end

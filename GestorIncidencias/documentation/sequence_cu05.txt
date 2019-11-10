@@ -1,0 +1,28 @@
+title CU-05
+
+actor Administrador
+participant Views
+participant Controller
+participant Contexto (DB)
+
+Administrador->Views:<<click>>incidencias
+activate Views
+Views->Controller:<<get>>Incidencias()
+activate Controller
+Controller->Contexto (DB):Incidencias
+activate Contexto (DB)
+Controller<--Contexto (DB):
+deactivate Contexto (DB)
+Views<--Controller:
+deactivate Controller
+Administrador<--Views:
+deactivate Views
+
+Administrador->Views:<<click>>crear
+activate Views
+Views->Controller:<<get>>Crear()
+activate Controller
+Views<--Controller:
+deactivate Controller
+Administrador<--Views:
+deactivate Views

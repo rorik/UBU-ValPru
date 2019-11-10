@@ -1,0 +1,34 @@
+title CU-01a
+
+actor Alumno/Profesor
+participant Views
+participant Controller
+participant Contexto (DB)
+
+
+activate Alumno/Profesor
+Alumno/Profesor->Views:<<get>>/
+activate Views
+Views->Controller:<<get>>Index()
+activate Controller
+Views<--Controller:
+deactivate Controller
+Alumno/Profesor<--Views:
+deactivate Views
+Alumno/Profesor->Views:<<click>>login
+activate Views
+Views->Controller:<<post>>Index()
+activate Controller
+Controller->Contexto (DB):Centros
+activate Contexto (DB)
+Controller<--Contexto (DB):
+deactivate Contexto (DB)
+Views<--Controller:Redirect ( Crear )
+deactivate Controller
+Views->Controller:<<get>>Crear()
+activate Controller
+Views<--Controller:
+deactivate Controller
+Alumno/Profesor<--Views:
+
+deactivate Views

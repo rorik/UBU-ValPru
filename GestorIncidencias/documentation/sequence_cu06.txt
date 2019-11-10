@@ -1,0 +1,32 @@
+title CU-06
+
+actor Usuario
+participant Views
+participant Controller
+
+activate Usuario
+Usuario->Views:<<get>>/crear
+activate Views
+Views->Controller:<<get>>Crear()
+activate Controller
+Views<--Controller:
+deactivate Controller
+Usuario<--Views:
+deactivate Views
+space
+deactivate Usuario
+
+space 2
+activate Usuario
+Usuario->Views:<<get>>/
+activate Views
+Views->Controller:<<get>>Index()
+activate Controller
+Views<--Controller:Redirect ( Crear )
+deactivate Controller
+Views->Controller:<<get>>Crear()
+activate Controller
+Views<--Controller:
+deactivate Controller
+Usuario<--Views:
+deactivate Views
