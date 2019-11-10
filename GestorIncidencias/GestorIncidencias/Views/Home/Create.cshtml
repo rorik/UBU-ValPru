@@ -4,7 +4,7 @@
 
 @model GestorIncidencias.Models.Binding.CreateQuery
 
-@using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "create-form display-flex flex-column my-0 mx-auto" }))
+@using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @id = "create-page", @class = "create-form display-flex flex-column my-0 mx-auto" }))
 {
     <label id="aula-label" for="aula">Aula</label>
     @Html.DropDownListFor(m => m.Aula, (SelectList)ViewBag.ListaAulas, new { @class = "form-control", @id = "aula" })

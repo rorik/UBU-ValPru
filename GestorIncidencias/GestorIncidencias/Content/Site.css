@@ -2,13 +2,6 @@
     height: 100%;
 }
 
-.navbar {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 101;
-}
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -37,4 +30,16 @@ form.login-form input#centro {
 form.login-form input#clave {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+/* Layout */
+nav.navbar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 101;
+}
+
+nav.navbar div.navbar-brand {
+    cursor: default;
 }

@@ -22,6 +22,10 @@ namespace GestorIncidencias.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if (IsLoggedIn())
+            {
+                return RedirectToAction(IsAdmin() ? "Incidencias" : "Create");
+            }
             ViewBag.MensajeError = "";
             return View();
         }
@@ -64,8 +68,7 @@ namespace GestorIncidencias.Controllers
 
         public ActionResult Incidencias()
         {
-            //Comprobacion de nulos
-            if (SesionUsuario?.Centro == null || !SesionUsuario.EsAdmin)
+            if (!IsAdmin())
             {
                 return RedirectToAction("Index");
             }
@@ -78,23 +81,24 @@ namespace GestorIncidencias.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var centro = SesionUsuario?.Centro;
-            if (centro == null)
+            if (!IsLoggedIn())
             {
                 return RedirectToAction("Index");
             }
-            ViewBag.ListaAulas = new SelectList(centro.ListaAulas ?? new string[] { }); ;
+            ViewBag.ListaAulas = new SelectList(SesionUsuario.Centro.ListaAulas ?? new string[] { }); ;
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(CreateQuery query)
         {
-            var centro = SesionUsuario?.Centro;
-            if (centro == null)
+            if (!IsLoggedIn())
             {
                 return RedirectToAction("Index");
             }
+
+            var centro = SesionUsuario.Centro;
+
             if (string.IsNullOrEmpty(query.Aula) || centro.ListaAulas.Length == 0 || !centro.ListaAulas.Contains(query.Aula))
             {
                 ViewBag.MensajeError = "Aula no válida.";
@@ -126,6 +130,11 @@ namespace GestorIncidencias.Controllers
         [HttpPost]
         public ActionResult Cerrar(int idIncidencia)
         {
+            if (!IsAdmin())
+            {
+                return RedirectToAction("Index");
+            }
+
             var incidencia = contexto.Incidencias.FirstOrDefault(i => i.IdIncidencia == idIncidencia);
             if (incidencia != null)
             {
@@ -142,14 +151,14 @@ namespace GestorIncidencias.Controllers
             return RedirectToAction("Index");
         }
 
-        public string IsAdmin()
+        public bool IsLoggedIn()
         {
-            return (SesionUsuario?.Centro != null && SesionUsuario.EsAdmin).ToString();
+            return SesionUsuario?.Centro != null;
         }
 
-        public string IsLoggedIn()
+        public bool IsAdmin()
         {
-            return (SesionUsuario?.Centro != null).ToString();
+            return IsLoggedIn() && SesionUsuario.EsAdmin;
         }
     }
 }

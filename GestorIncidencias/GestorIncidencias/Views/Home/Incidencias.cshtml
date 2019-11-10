@@ -2,8 +2,7 @@
     ViewBag.Title = "Incidencias";
 }
 
-
-<div class="row">
+<div id="incidencias-page" class="row">
     <div class="col-xl-12 py-2">
         <table style="width:100%">
             <tr>
@@ -19,13 +18,13 @@
             @for (int i = 0; i < ViewBag.ListaIncidencias.Count; i++)
             {
                 <tr>
-                    <td id="idIncidencia-@i">@ViewBag.ListaIncidencias[i].IdIncidencia</td>
-                    <td id="timestamp-@i">@ViewBag.ListaIncidencias[i].Timestamp</td>
-                    <td id="asunto-@i">@ViewBag.ListaIncidencias[i].Asunto</td>
-                    <td id="comentario-@i">@ViewBag.ListaIncidencias[i].Comentario</td>
-                    <td id="centroId">@ViewBag.ListaIncidencias[i].CentroId</td>
-                    <td id="aula-@i">@ViewBag.ListaIncidencias[i].Aula</td>
-                    <td id="equipo-@i">@ViewBag.ListaIncidencias[i].Equipo</td>
+                    <td name="idIncidencia" id="idIncidencia-@i">@ViewBag.ListaIncidencias[i].IdIncidencia</td>
+                    <td name="timestamp" id="timestamp-@i">@ViewBag.ListaIncidencias[i].Timestamp</td>
+                    <td name="asunto" id="asunto-@i">@ViewBag.ListaIncidencias[i].Asunto</td>
+                    <td name="comentario" id="comentario-@i">@ViewBag.ListaIncidencias[i].Comentario</td>
+                    <td name="centroId" id="centroId-@i">@ViewBag.ListaIncidencias[i].CentroId</td>
+                    <td name="aula" id="aula-@i">@ViewBag.ListaIncidencias[i].Aula</td>
+                    <td name="equipo" id="equipo-@i">@ViewBag.ListaIncidencias[i].Equipo</td>
 
                     <td>
                         @using (Html.BeginForm("Cerrar", "Home", new { area = "", idIncidencia = ViewBag.ListaIncidencias[i].IdIncidencia }, FormMethod.Post))
