@@ -70,8 +70,6 @@ namespace GestorIncidencias.Controllers
                 return RedirectToAction("Index");
             }
 
-            //Comparar String puede ser inseguro
-            var inc = contexto.Incidencias.ToList();
             ViewBag.ListaIncidencias = contexto.Incidencias.Where(incidencia => (!incidencia.Cerrada) && (incidencia.Centro.IdCentro == SesionUsuario.Centro.IdCentro)).ToList();
 
             return View();
