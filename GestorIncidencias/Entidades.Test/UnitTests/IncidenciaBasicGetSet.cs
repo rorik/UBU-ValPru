@@ -117,5 +117,15 @@ namespace Entidades.Test.UnitTest
             Assert.That(Incidencia.CentroId, Is.Not.EqualTo(TestString));
             Assert.That(Incidencia.CentroId, Is.EqualTo(TestString2));
         }
+
+        [Test]
+        public void GetSetCentro()
+        {
+            Incidencia.Centro = new Centro { IdCentro = "TestCentro" };
+            Assert.That(Incidencia.Centro, Is.Not.Null);
+            Assert.That(Incidencia.Centro.IdCentro, Is.EqualTo("TestCentro"));
+            Incidencia.Centro = null;
+            Assert.That(Incidencia.Centro, Is.Null);
+        }
     }
 }

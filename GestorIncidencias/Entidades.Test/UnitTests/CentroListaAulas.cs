@@ -66,5 +66,16 @@ namespace Entidades.Test.UnitTest
             Assert.That(Centro.Aulas, Is.EqualTo(TestAulas2Simplified));
             Assert.That(Centro.Aulas, Is.Not.EqualTo(TestAulas));
         }
+
+        [Test]
+        public void SetListaAulasNull()
+        {
+            Centro.ListaAulas = TestAulas2List;
+            Assert.That(Centro.ListaAulas, Is.Not.Null);
+            Assert.That(Centro.Aulas, Is.Not.Null);
+            Centro.ListaAulas = null;
+            Assert.That(Centro.ListaAulas, Is.Null);
+            Assert.That(Centro.Aulas, Is.Null);
+        }
     }
 }
