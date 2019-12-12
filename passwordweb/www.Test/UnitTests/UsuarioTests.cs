@@ -52,5 +52,25 @@ namespace www.Test.UnitTests
             Assert.IsFalse(Usuario.CompruebaPassword(DefaultPassword));
             Assert.IsTrue(Usuario.CompruebaPassword(NuevaPassword));
         }
+
+        /*Requisito 6*/
+        [Test]
+        public void InititalPassword()
+        {
+            Assert.IsTrue(Usuario.CompruebaPassword(DefaultPassword));
+        }
+
+        [Test]
+        public void DoesResetPassword()
+        {
+            string NuevaPassword = "test123";
+            Assert.IsTrue(Usuario.CompruebaPassword(DefaultPassword));
+            Usuario.CambiarPassword(DefaultPassword, NuevaPassword);
+            Assert.IsFalse(Usuario.CompruebaPassword(DefaultPassword));
+            Assert.IsTrue(Usuario.CompruebaPassword(NuevaPassword));
+            Usuario.ResetPassword();
+            Assert.IsFalse(Usuario.CompruebaPassword(NuevaPassword));
+            Assert.IsTrue(Usuario.CompruebaPassword(DefaultPassword));
+        }
     }
 }
