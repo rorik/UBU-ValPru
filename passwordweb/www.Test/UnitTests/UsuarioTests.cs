@@ -99,5 +99,54 @@ namespace www.Test.UnitTests
             Assert.IsFalse(Usuario.esEvaluador());
             Assert.IsTrue(Usuario.esAspirante());
         }
+
+        /*Requisito 9*/
+        [Test]
+        public void PasswordAlphanumeric()
+        {
+            string passwordInvalidaSoloLetras = "ClaveTest";
+            string passwordInvalidaSoloNumeros = "123456";
+            string passwordValida = passwordInvalidaSoloLetras + passwordInvalidaSoloNumeros;
+
+            Assert.AreNotEqual(0, Usuario.cambiaPassword(passwordInvalidaSoloLetras));
+            Assert.IsFalse(Usuario.CompruebaPassword(passwordInvalidaSoloLetras));
+            Assert.IsTrue(Usuario.CompruebaPassword(DefaultPassword));
+
+            Assert.AreNotEqual(0, Usuario.cambiaPassword(passwordInvalidaSoloNumeros));
+            Assert.IsFalse(Usuario.CompruebaPassword(passwordInvalidaSoloNumeros));
+            Assert.IsTrue(Usuario.CompruebaPassword(DefaultPassword));
+
+            Assert.AreEqual(0, Usuario.cambiaPassword(passwordValida));
+            Assert.IsTrue(Usuario.CompruebaPassword(passwordValida));
+            Assert.IsFalse(Usuario.CompruebaPassword(DefaultPassword));
+        }
+
+        [Test]
+        public void PasswordCase()
+        {
+            string passwordInvalidaSoloMinusculas = "clavetest123456";
+            string passwordInvalidaSoloMayusculas = "CLAVETEST123456";
+            string passwordValida = "ClaveTest123456";
+
+            Assert.AreNotEqual(0, Usuario.cambiaPassword(passwordInvalidaSoloMinusculas));
+            Assert.IsFalse(Usuario.CompruebaPassword(passwordInvalidaSoloMinusculas));
+            Assert.IsTrue(Usuario.CompruebaPassword(DefaultPassword));
+
+            Assert.AreNotEqual(0, Usuario.cambiaPassword(passwordInvalidaSoloMayusculas));
+            Assert.IsFalse(Usuario.CompruebaPassword(passwordInvalidaSoloMayusculas));
+            Assert.IsTrue(Usuario.CompruebaPassword(DefaultPassword));
+
+            Assert.AreEqual(0, Usuario.cambiaPassword(passwordValida));
+            Assert.IsTrue(Usuario.CompruebaPassword(passwordValida));
+            Assert.IsFalse(Usuario.CompruebaPassword(DefaultPassword));
+        }
+
+        [Test]
+        public void PasswordIsNotName()
+        {
+            Assert.AreNotEqual(0, Usuario.cambiaPassword(Cuenta));
+            Assert.IsFalse(Usuario.CompruebaPassword(Cuenta));
+            Assert.IsTrue(Usuario.CompruebaPassword(DefaultPassword));
+        }
     }
 }
