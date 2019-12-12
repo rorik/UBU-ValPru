@@ -72,5 +72,32 @@ namespace www.Test.UnitTests
             Assert.IsFalse(Usuario.CompruebaPassword(NuevaPassword));
             Assert.IsTrue(Usuario.CompruebaPassword(DefaultPassword));
         }
+
+        /*Requisito 8*/
+        [Test]
+        public void CheckIfIsAdministrador()
+        {
+            UsuarioNuevo = new Usuario(Cuenta, Nombre, Apellidos, Email, 0);
+            Assert.IsTrue(Usuario.esAdministrador());
+            Assert.IsFalse(Usuario.esEvaluador());
+            Assert.IsFalse(Usuario.esAspirante());
+        }
+        [Test]
+        public void CheckIfIsEvaluador()
+        {
+            UsuarioNuevo = new Usuario(Cuenta, Nombre, Apellidos, Email, 1);
+            Assert.IsFalse(Usuario.esAdministrador());
+            Assert.IsTrue(Usuario.esEvaluador());
+            Assert.IsFalse(Usuario.esAspirante());
+        }
+
+        [Test]
+        public void CheckIfIsAspirante()
+        {
+            UsuarioNuevo = new Usuario(Cuenta, Nombre, Apellidos, Email, 2);
+            Assert.IsFalse(Usuario.esAdministrador());
+            Assert.IsFalse(Usuario.esEvaluador());
+            Assert.IsTrue(Usuario.esAspirante());
+        }
     }
 }
