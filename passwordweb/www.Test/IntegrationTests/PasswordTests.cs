@@ -42,7 +42,7 @@
         [Test]
         public void ChangePassword()
         {
-            Driver.FindElement(By.Id("change-pwd-btn")).Click();
+            AccessWeb();
             Assert.That(() => Driver.FindElement(By.Id("ctxUser")), Throws.Nothing);
             Assert.That(() => Driver.FindElement(By.Id("ctxPassword")), Throws.Nothing);
             Assert.That(() => Driver.FindElement(By.Id("ctxNewPassword")), Throws.Nothing);
@@ -60,7 +60,7 @@
         [Test]
         public void MismatchConfirmationPassword()
         {
-            Driver.FindElement(By.Id("change-pwd-btn")).Click();
+            AccessWeb();
             Driver.FindElement(By.Id("ctxUser")).SendKeys(Cuenta);
             Driver.FindElement(By.Id("ctxPassword")).SendKeys(Password);
             Driver.FindElement(By.Id("ctxNewPassword")).SendKeys(Password2);
@@ -72,13 +72,33 @@
         [Test]
         public void ValidConfirmationPassword()
         {
-            Driver.FindElement(By.Id("change-pwd-btn")).Click();
+            AccessWeb();
             Driver.FindElement(By.Id("ctxUser")).SendKeys(Cuenta);
             Driver.FindElement(By.Id("ctxPassword")).SendKeys(Password);
             Driver.FindElement(By.Id("ctxNewPassword")).SendKeys(Password2);
             Driver.FindElement(By.Id("ctxReNewPassword")).SendKeys(Password2);
             Driver.FindElement(By.Id("ctxSubmit")).Click();
             Assert.That(() => Driver.FindElement(By.Xpath($"//*[contains(., '{DuplicatedMismatchError}')]")), Throws.InstanceOf(typeof(NoSuchElementException)));
+        }
+
+        [Test]
+        public void NavigateByTab()
+        {
+            AccessWeb();
+            Driver.FindElement(By.Id("ctxUser")).Click();
+            Assert.That(Driver.switchTo().activeElement(), Is.EqualTo(Driver.FindElement(By.Id("ctxUser"))));
+            Driver.FindElement(By.Id("ctxUser")).SendKeys(Keys.Tab);
+            Assert.That(Driver.switchTo().activeElement(), Is.Not.EqualTo(Driver.FindElement(By.Id("ctxUser"))));
+            Assert.That(Driver.switchTo().activeElement(), Is.EqualTo(Driver.FindElement(By.Id("ctxPassword"))));
+            Driver.FindElement(By.Id("ctxPassword")).SendKeys(Keys.Tab);
+            Assert.That(Driver.switchTo().activeElement(), Is.Not.EqualTo(Driver.FindElement(By.Id("ctxPassword"))));
+            Assert.That(Driver.switchTo().activeElement(), Is.EqualTo(Driver.FindElement(By.Id("ctxNewPassword"))));
+            Driver.FindElement(By.Id("ctxNewPassword")).SendKeys(Keys.Tab);
+            Assert.That(Driver.switchTo().activeElement(), Is.Not.EqualTo(Driver.FindElement(By.Id("ctxNewPassword"))));
+            Assert.That(Driver.switchTo().activeElement(), Is.EqualTo(Driver.FindElement(By.Id("ctxReNewPassword"))));
+            Driver.FindElement(By.Id("ctxReNewPassword")).SendKeys(Keys.Tab);
+            Assert.That(Driver.switchTo().activeElement(), Is.Not.EqualTo(Driver.FindElement(By.Id("ctxReNewPassword"))));
+            Assert.That(Driver.switchTo().activeElement(), Is.EqualTo(Driver.FindElement(By.Id("ctxSubmit"))));
         }
     }
 }
