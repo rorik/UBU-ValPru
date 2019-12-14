@@ -1,7 +1,4 @@
-﻿using NUnit.Framework;
-using System.Text;
-
-namespace www.Test.UnitTests
+﻿namespace www.Test.UnitTests
 {
     public class UsuarioTests
     {
