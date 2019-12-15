@@ -22,39 +22,39 @@ namespace www.Models
 
         public Usuario()
         {
-            this.Salt = CryptoTools.GenerateSalt();
-            this.Password = CryptoTools.GenerateHash(this.DefaultPassword, this.Salt);
+            Salt = CryptoTools.GenerateSalt();
+            Password = CryptoTools.GenerateHash(DefaultPassword, Salt);
         }
 
         public Usuario(string _cuenta)
         {
-            this.Cuenta = _cuenta;
-            this.Salt = CryptoTools.GenerateSalt();
-            this.Password = CryptoTools.GenerateHash(this.DefaultPassword, this.Salt);
+            Cuenta = _cuenta;
+            Salt = CryptoTools.GenerateSalt();
+            Password = CryptoTools.GenerateHash(DefaultPassword, Salt);
         }
 
         public Usuario(string _cuenta, string _nombre, string _apellidos, string _eMail, int _rol)
         {
-            this.Cuenta = _cuenta;
-            this.Nombre = _nombre;
-            this.Apellidos = _apellidos;
-            this.Email = _eMail;
-            this.Rol = _rol;
-            this.Salt = CryptoTools.GenerateSalt();
-            this.Password = CryptoTools.GenerateHash(this.DefaultPassword, this.Salt);
+            Cuenta = _cuenta;
+            Nombre = _nombre;
+            Apellidos = _apellidos;
+            Email = _eMail;
+            Rol = _rol;
+            Salt = CryptoTools.GenerateSalt();
+            Password = CryptoTools.GenerateHash(DefaultPassword, Salt);
         }
 
         public string ResetPassword()
         {
-            this.Password = CryptoTools.GenerateHash(this.DefaultPassword, this.Salt);
-            return this.DefaultPassword;
+            Password = CryptoTools.GenerateHash(DefaultPassword, Salt);
+            return DefaultPassword;
         }
 
         public int CambiaPassword(string anteriorPassword, string nuevaPassword)
         {
-            if (this.CompruebaPassword(anteriorPassword) && this.RequisitosPW(nuevaPassword))
+            if (CompruebaPassword(anteriorPassword) && RequisitosPW(nuevaPassword, Cuenta))
             {
-                this.Password = CryptoTools.GenerateHash(nuevaPassword, this.Salt);
+                Password = CryptoTools.GenerateHash(nuevaPassword, Salt);
                 return 0;
             }
             else
@@ -65,7 +65,7 @@ namespace www.Models
 
         public bool CompruebaPassword(string password)
         {
-            return CryptoTools.ValidateHash(password, this.Password, this.Salt);
+            return CryptoTools.ValidateHash(password, Password, Salt);
         }
 
         public int Grabar()
@@ -83,7 +83,7 @@ namespace www.Models
             return 0;
         }
 
-        private bool RequisitosPW(string password)
+        public static bool RequisitosPW(string password, string cuenta)
         {
             //Comprobacion de solo numeros y letras
             if (password.All(char.IsDigit) || password.All(char.IsLetter))
@@ -98,12 +98,8 @@ namespace www.Models
             }
 
             //Comprobacion de si contraseña es cuenta
-            if (this.Cuenta != null && password == this.Cuenta)
-            {
-                return false;
-            }
 
-            return true;
+            return password != cuenta;
         }
 
         private bool Validar()
@@ -113,15 +109,15 @@ namespace www.Models
 
         public bool EsAdministrador()
         {
-            return this.Rol == this.RolAdmin;
+            return Rol == RolAdmin;
         }
         public bool EsEvaluador()
         {
-            return this.Rol == this.RolEvaluador;
+            return Rol == RolEvaluador;
         }
         public bool EsAspirante()
         {
-            return this.Rol == this.RolAspirante;
+            return Rol == RolAspirante;
         }
     }
 }
