@@ -7,18 +7,18 @@ namespace www.Models
 {
     public class Usuario
     {
-        private string Cuenta;
-        private string Nombre;
-        private string Apellidos;
-        private string Email;
-        private string Password;
-        private int Rol;
-        private string DefaultPassword = "P@ssw0rd";
+        public string Cuenta { get; private set; }
+        public string Nombre { get; private set; }
+        public string Apellidos { get; private set; }
+        public string Email { get; private set; }
+        private string Password { get; set; }
+        private int Rol { get; set; }
+        private string DefaultPassword { get; set; } = "P@ssw0rd";
 
-        private string Salt;
-        private int RolAdmin = 0;
-        private int RolEvaluador = 1;
-        private int RolAspirante = 2;
+        private string Salt { get; set; }
+        private int RolAdmin { get; set; } = 0;
+        private int RolEvaluador { get; set; } = 1;
+        private int RolAspirante { get; set; } = 2;
 
         public Usuario()
         {
@@ -98,7 +98,6 @@ namespace www.Models
             }
 
             //Comprobacion de si contraseña es cuenta
-
             return password != cuenta;
         }
 

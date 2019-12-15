@@ -4,37 +4,37 @@
     ViewData["Title"] = "Index";
 }
 
-    <body>
-        <form name="post" method="post">
-            <table>
-                <tbody>
-                    <tr>
-                        <th>Usuario:</th>
-                        <td>
-                            <input asp-for="Username" id="ctxtUser" autocomplete="off">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Contraseña:</th>
-                        <td>
-                            <input asp-for="Password" id="ctxtPassword" autocomplete="off">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Nueva contraseña:</th>
-                        <td>
-                            <input asp-for="NewPassword" id="ctxtNewPassword" autocomplete="off">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Repite contraseña:</th>
-                        <td>
-                            <input asp-for="ConfirmNewPassword" id="ctxtReNewPassword" autocomplete="off">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <span id="lblUserMsg"></span>
-            <input type="submit" name="post" value="Aceptar" id="btnAceptar">
-        </form>
-    </body>
+<body>
+    <form name="post" method="post">
+        <table>
+            <tbody>
+                <tr>
+                    <th>Usuario:</th>
+                    <td>
+                        <input asp-for="Username" type="text" id="ctxtUser" autocomplete="off">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Contraseña:</th>
+                    <td>
+                        <input asp-for="Password" type="password" id="ctxtPassword" autocomplete="off">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Nueva contraseña:</th>
+                    <td>
+                        <input asp-for="NewPassword" type="password" id="ctxtNewPassword" autocomplete="off">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Repite contraseña:</th>
+                    <td>
+                        <input asp-for="ConfirmNewPassword" type="password" id="ctxtReNewPassword" autocomplete="off">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" name="post" value="Aceptar" id="btnAceptar">
+        <span id="lblUserMsg">@Model.Message</span>
+    </form>
+</body>
