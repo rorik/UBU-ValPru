@@ -17,7 +17,14 @@ namespace www.Pages
             new Usuario("usuario1", "abc", "def ghi", "a@example.com", 0),
             new Usuario("usuario2", "jkl", "mno pqr", "b@example.com", 1),
             new Usuario("usuario3", "stu", "vwx yzz", "c@example.com", 2),
+            new Usuario("TestCuenta", "zzz", "zzz zzz", "d@example.com", 0),
         };
+        
+        public IndexModel()
+        {
+            Usuarios[3].ResetPassword();
+            Usuarios[3].CambiaPassword("P@ssw0rd", "testClave1234");
+        }
 
         public void OnGet()
         {

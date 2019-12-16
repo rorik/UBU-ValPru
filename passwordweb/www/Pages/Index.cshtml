@@ -5,36 +5,37 @@
 }
 
 <body>
-    <form name="post" method="post">
+    <button id="change-pwd-btn"></button>
+    <form id="password-change-page" name="post" method="post">
         <table>
             <tbody>
                 <tr>
                     <th>Usuario:</th>
                     <td>
-                        <input asp-for="Username" type="text" id="ctxtUser" autocomplete="off">
+                        <input asp-for="Username" type="text" id="ctxUser" autocomplete="off">
                     </td>
                 </tr>
                 <tr>
                     <th>Contraseña:</th>
                     <td>
-                        <input asp-for="Password" type="password" id="ctxtPassword" autocomplete="off">
+                        <input asp-for="Password" type="password" id="ctxPassword" autocomplete="off">
                     </td>
                 </tr>
                 <tr>
                     <th>Nueva contraseña:</th>
                     <td>
-                        <input asp-for="NewPassword" type="password" id="ctxtNewPassword" autocomplete="off">
+                        <input asp-for="NewPassword" type="password" id="ctxNewPassword" autocomplete="off">
                     </td>
                 </tr>
                 <tr>
                     <th>Repite contraseña:</th>
                     <td>
-                        <input asp-for="ConfirmNewPassword" type="password" id="ctxtReNewPassword" autocomplete="off">
+                        <input asp-for="ConfirmNewPassword" type="password" id="ctxReNewPassword" autocomplete="off">
                     </td>
                 </tr>
             </tbody>
         </table>
-        <input type="submit" name="post" value="Aceptar" id="btnAceptar">
-        <span id="lblUserMsg">@Model.Message</span>
+        <input type="submit" name="post" value="Aceptar" id="ctxSubmit">
+        <span id="ctxInfo">@Model.Message</span>
     </form>
 </body>

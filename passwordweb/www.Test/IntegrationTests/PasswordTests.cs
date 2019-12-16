@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.IO;
+using System.Reflection;
 
 namespace www.Test.IntegrationTests
 {
@@ -10,7 +12,7 @@ namespace www.Test.IntegrationTests
         private IWebDriver Driver { get; set; }
         private const string BaseURL = "http://localhost:63119/";
         private const string Cuenta = "TestCuenta";
-        private const string Password = "testclave1234";
+        private const string Password = "testClave1234";
         private const string Password2 = "AbCdEfG1234567890";
         private const string Password3 = "ABCDEFG1234567890";
         private const string PasswordChangedMessage = "cambiada";
@@ -19,7 +21,7 @@ namespace www.Test.IntegrationTests
         [SetUp]
         public void SetUp()
         {
-            Driver = new ChromeDriver()
+            Driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
             {
                 Url = BaseURL
             };
